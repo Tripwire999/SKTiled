@@ -48,7 +48,7 @@ public extension SKTileLayer {
      - parameter nodeClass:         `String?` graph node type.
      - returns:  `GKGridGraph<GKGridGraphNode>?` navigation graph, if created.
      */
-    public func initializeGraph(walkable: [SKTile],
+    func initializeGraph(walkable: [SKTile],
                                 obstacles: [SKTile] = [],
                                 diagonalsAllowed: Bool = false,
                                 withName: String? = nil,
@@ -63,7 +63,7 @@ public extension SKTileLayer {
         let GraphNode = (tilemap.delegate != nil) ? tilemap.delegate!.objectForGraphType(named: nodeClass) : GKGridGraphNode.self
 
         // create the navigation graph
-        self.graph = GKGridGraph<GKGridGraphNode>(fromGridStartingAt: int2(0, 0),
+        self.graph = GKGridGraph<GKGridGraphNode>(fromGridStartingAt: SIMD2<Int32>(0, 0),
                                                   width: Int32(size.width),
                                                   height: Int32(size.height),
                                                   diagonalsAllowed: diagonalsAllowed,
@@ -75,7 +75,7 @@ public extension SKTileLayer {
 
         for col in 0 ..< Int(size.width) {
             for row in (0 ..< Int(size.height)) {
-                let coord = int2(Int32(col), Int32(row))
+                let coord = SIMD2<Int32>(Int32(col), Int32(row))
 
                 if let node = graph.node(atGridPosition: coord) {
 
@@ -131,7 +131,7 @@ public extension SKTileLayer {
      
      - returns:  `GKGridGraph<GKGridGraphNode>?` navigation graph, if created.
      */
-    public func initializeGraph() -> GKGridGraph<GKGridGraphNode>? {
+    func initializeGraph() -> GKGridGraph<GKGridGraphNode>? {
         let walkable = getTiles()
         return self.initializeGraph(walkable: walkable)
     }
@@ -145,7 +145,7 @@ public extension SKTileLayer {
      - parameter nodeClass:         `String?` graph node type.
      - returns:  `GKGridGraph<GKGridGraphNode>?` navigation graph, if created.
      */
-    public func initializeGraph(walkableIDs: [Int],
+    func initializeGraph(walkableIDs: [Int],
                                 obstacleIDs: [Int] = [],
                                 diagonalsAllowed: Bool = false,
                                 nodeClass: String? = nil) -> GKGridGraph<GKGridGraphNode>? {
@@ -169,7 +169,7 @@ public extension SKTileLayer {
      
      - returns: `[SKTile]` array of tiles with walkable attribute.
      */
-    public func gatherWalkable() -> [SKTile] {
+    func gatherWalkable() -> [SKTile] {
         return self.getTiles().filter { $0.tileData.walkable == true }
     }
 
@@ -178,7 +178,7 @@ public extension SKTileLayer {
 
      - returns: `[SKTile]` array of tiles with obstacle attribute.
      */
-    public func gatherObstacles() -> [SKTile] {
+    func gatherObstacles() -> [SKTile] {
         return self.getTiles().filter { $0.tileData.obstacle == true }
     }
 }
@@ -226,12 +226,12 @@ public class SKTiledGraphNode: GKGridGraphNode, SKTiledObject {
      - parameter weight: `Float` node weight.
      - returns: `SKTiledGraphNode` node instance.
      */
-    public init(gridPosition: int2, weight: Float = 1.0) {
+    public init(gridPosition: SIMD2<Int32>, weight: Float = 1.0) {
         self.weight = weight
         super.init(gridPosition: gridPosition)
     }
 
-    override public init(gridPosition: int2) {
+    override public init(gridPosition: SIMD2<Int32>) {
         super.init(gridPosition: gridPosition)
     }
 

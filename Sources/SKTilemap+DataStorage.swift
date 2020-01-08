@@ -719,7 +719,7 @@ internal class StorageArray<Element>: Equatable {
      */
     func remove(where predicate: @escaping (Element) -> Bool, completion: ((Element) -> Void)? = nil) {
         queue.async(flags: .barrier) {
-            guard let index = self.array.index(where: predicate) else { return }
+            guard let index = self.array.firstIndex(where: predicate) else { return }
             let element = self.array.remove(at: index)
 
             DispatchQueue.main.async {
@@ -778,8 +778,8 @@ extension CacheIsolationMode {
 extension StorageArray: Hashable {
     
     /// Identifier hash.
-    var hashValue: Int {
-        return uuid.hashValue
+    public func hash(into hasher: inout Hasher) {
+      hasher.combine(uuid.hashValue)
     }
     
     static func == (lhs: StorageArray<Element>, rhs: StorageArray<Element>) -> Bool {
@@ -837,7 +837,7 @@ extension StorageArray {
     /// Returns the first index in which an element of the collection satisfies the given predicate.
     func index(where predicate: (Element) -> Bool) -> Int? {
         var result: Int?
-        queue.sync { result = self.array.index(where: predicate) }
+        queue.sync { result = self.array.firstIndex(where: predicate) }
         return result
     }
 

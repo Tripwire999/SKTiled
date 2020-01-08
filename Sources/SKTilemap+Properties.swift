@@ -17,7 +17,7 @@ public extension SKTilemap {
 
      - parameter completion: `Void?` optional completion closure.
     */
-    public func parseProperties(completion: (() -> Void)?) {
+    func parseProperties(completion: (() -> Void)?) {
 
         if (ignoreProperties == true) { return }
         if (self.type == nil) { self.type = properties.removeValue(forKey: "type") }
@@ -170,7 +170,7 @@ public extension SKTileset {
     /**
      Parse the tileset's properties value.
      */
-    public func parseProperties(completion: (() -> Void)?) {
+    func parseProperties(completion: (() -> Void)?) {
         if (ignoreProperties == true) { return }
          if (self.type == nil) { self.type = properties.removeValue(forKey: "type") }
 
@@ -201,8 +201,7 @@ public extension SKTiledLayerObject {
     /**
      Parse the layer's properties value.
      */
-    public func parseProperties(completion: (() -> Void)?) {
-
+    func parseProperties(completion: (() -> Void)?) {
         if (ignoreProperties == true) { return }
         if (self.type == nil) { self.type = properties.removeValue(forKey: "type") }
 
@@ -257,7 +256,7 @@ public extension SKTiledLayerObject {
      - parameter name: `String` property name.
      - returns: `String?` the property value, or nil if it does not exist.
      */
-    public func getValue(forProperty name: String) -> String? {
+    func getValue(forProperty name: String) -> String? {
         return stringForKey(name)
     }
 
@@ -267,7 +266,7 @@ public extension SKTiledLayerObject {
      - parameter name:  `String` property name.
      - parameter value: `String` property value.
      */
-    public func setValue(_ value: String, forProperty name: String) {
+    func setValue(_ value: String, forProperty name: String) {
         properties[name] = value
     }
 }
@@ -279,7 +278,7 @@ public extension SKTileLayer {
     /**
      Parse the tile layer's properties.
      */
-    override public func parseProperties(completion: (() -> Void)?) {
+    override func parseProperties(completion: (() -> Void)?) {
         super.parseProperties(completion: completion)
     }
 }
@@ -291,7 +290,7 @@ public extension SKObjectGroup {
     /**
      Parse the object group's properties.
     */
-    override public func parseProperties(completion: (() -> Void)?) {
+    override func parseProperties(completion: (() -> Void)?) {
         if (ignoreProperties == true) { return }
         for (attr, _ ) in properties {
             let lattr = attr.lowercased()
@@ -311,7 +310,7 @@ public extension SKImageLayer {
     /**
      Parse the image layer's properties.
     */
-    override public func parseProperties(completion: (() -> Void)?) {
+    override func parseProperties(completion: (() -> Void)?) {
         super.parseProperties(completion: completion)
     }
 }
@@ -323,7 +322,7 @@ public extension SKTileObject {
     /**
      Parse the object's properties value.
      */
-    public func parseProperties(completion: (() -> Void)?) {
+    func parseProperties(completion: (() -> Void)?) {
         if (ignoreProperties == true) { return }
         if (self.type == nil) { self.type = properties.removeValue(forKey: "type") }
         for (attr, value) in properties {
@@ -371,7 +370,7 @@ public extension SKTilesetData {
     /**
      Parse the tile data's properties value.
      */
-    public func parseProperties(completion: (() -> Void)?) {
+    func parseProperties(completion: (() -> Void)?) {
         if (ignoreProperties == true) { return }
         if (self.type == nil) { self.type = properties.removeValue(forKey: "type") }
 

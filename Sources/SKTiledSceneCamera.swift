@@ -358,7 +358,7 @@ public class SKTiledSceneCamera: SKCameraNode {
      - parameter delegate:  `SKTiledSceneCameraDelegate` camera delegate.
      */
     public func addDelegate(_ delegate: SKTiledSceneCameraDelegate) {
-        if (delegates.index(where: { $0 === delegate }) != nil) {
+        if (delegates.firstIndex(where: { $0 === delegate }) != nil) {
             return
         }
         delegates.append(delegate)
@@ -370,7 +370,7 @@ public class SKTiledSceneCamera: SKCameraNode {
      - parameter delegate:  `SKTiledSceneCameraDelegate` camera delegate.
      */
     public func removeDelegate(_ delegate: SKTiledSceneCameraDelegate) {
-        if let idx = delegates.index(where: { $0 === delegate}) {
+        if let idx = delegates.firstIndex(where: { $0 === delegate}) {
             delegates.remove(at: idx)
         }
     }

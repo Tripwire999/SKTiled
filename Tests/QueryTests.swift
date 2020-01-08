@@ -80,12 +80,11 @@ class QueryTests: XCTestCase {
      - has `color` property of `#ffa07daa`
      */
     func testGlobalIDQuery() {
-        guard let tilemap = tilemap else {
-            XCTFail("❗️tilemap did not load.")
-            return
+        guard tilemap != nil else {
+          XCTFail("❗️tilemap did not load.")
+          return
         }
-        
-        //let orangeTiles = tilemap.getTiles(globalID: 130)
 
+        //let orangeTiles = tilemap.getTiles(globalID: 130)
     }
 }

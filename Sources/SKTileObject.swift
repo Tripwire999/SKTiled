@@ -493,7 +493,7 @@ open class SKTileObject: SKShapeNode, SKTiledObject {
 
         // flip the vertex values on the y-value for our coordinate transform.
         // for some odd reason Tiled tile objects are flipped in the y-axis already, so ignore the translated
-        var translatedVertices: [CGPoint] = (isPolyType == true) ? (gid == nil) ? vertices.map { $0.invertedY } : vertices : (gid == nil) ? vertices.map { $0.invertedY } : vertices
+        let translatedVertices: [CGPoint] = (isPolyType == true) ? (gid == nil) ? vertices.map { $0.invertedY } : vertices : (gid == nil) ? vertices.map { $0.invertedY } : vertices
 
         switch shapeType {
 

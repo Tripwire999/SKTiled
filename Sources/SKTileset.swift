@@ -568,7 +568,7 @@ public class SKTileset: NSObject, SKTiledObject {
         // parse out flipped flags
         var id = rawTileID(id: gid)
         id = getLocalID(forGlobalID: id)
-        if let index = tileData.index(where: { $0.id == id }) {
+        if let index = tileData.firstIndex(where: { $0.id == id }) {
             return tileData[index]
         }
         return nil
@@ -582,7 +582,7 @@ public class SKTileset: NSObject, SKTiledObject {
      */
     public func getTileData(localID id: Int) -> SKTilesetData? {
         let localID = rawTileID(id: id)
-        if let index = tileData.index(where: { $0.id == localID }) {
+        if let index = tileData.firstIndex(where: { $0.id == localID }) {
             return tileData[index]
         }
         return nil

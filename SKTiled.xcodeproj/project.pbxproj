@@ -1249,6 +1249,7 @@
 					4C4ADA622189F3F100DB1A02 = {
 						CreatedOnToolsVersion = 10.0;
 						DevelopmentTeam = 747QKN4G7U;
+						LastSwiftMigration = 1130;
 						ProvisioningStyle = Automatic;
 					};
 					4C4ADA812189F5FB00DB1A02 = {
@@ -1271,7 +1272,7 @@
 			};
 			buildConfigurationList = 4CBA61601D8A048200B31FC1 /* Build configuration list for PBXProject "SKTiled" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -1990,6 +1991,7 @@
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MARKETING_VERSION = 1.22;
 				PRODUCT_BUNDLE_IDENTIFIER = com.supermeerkat.SKTiledDemo;
 				PRODUCT_NAME = "SKTiled Demo";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2011,6 +2013,7 @@
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MARKETING_VERSION = 1.22;
 				PRODUCT_BUNDLE_IDENTIFIER = com.supermeerkat.SKTiledDemo;
 				PRODUCT_NAME = "SKTiled Demo";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2039,6 +2042,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/tvOS/framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 1.22;
 				PRODUCT_BUNDLE_IDENTIFIER = com.supermeerkat.SKTiled;
 				PRODUCT_NAME = SKTiled;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2072,6 +2076,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/tvOS/framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 1.22;
 				PRODUCT_BUNDLE_IDENTIFIER = com.supermeerkat.SKTiled;
 				PRODUCT_NAME = SKTiled;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2099,6 +2104,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "$(SRCROOT)/tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.22;
 				PRODUCT_BUNDLE_IDENTIFIER = com.supermeerkat.SKTiledDemo;
 				PRODUCT_NAME = "SKTiled Demo";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2125,6 +2131,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "$(SRCROOT)/tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.22;
 				PRODUCT_BUNDLE_IDENTIFIER = com.supermeerkat.SKTiledDemo;
 				PRODUCT_NAME = "SKTiled Demo";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2152,6 +2159,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/macOS/framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 1.22;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.supermeerkat.SKTiled;
 				PRODUCT_NAME = SKTiled;
@@ -2183,6 +2191,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/macOS/framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 1.22;
 				PRODUCT_BUNDLE_IDENTIFIER = com.supermeerkat.SKTiled;
 				PRODUCT_NAME = SKTiled;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2209,6 +2218,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/iOS/framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 1.22;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.supermeerkat.SKTiled;
 				PRODUCT_MODULE_NAME = SKTiled;
@@ -2238,6 +2248,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/iOS/framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 1.22;
 				PRODUCT_BUNDLE_IDENTIFIER = com.supermeerkat.SKTiled;
 				PRODUCT_MODULE_NAME = SKTiled;
 				PRODUCT_NAME = SKTiled;
@@ -2267,7 +2278,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = SKTiledTests;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2291,7 +2302,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = SKTiledTests;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -2315,7 +2326,7 @@
 				PRODUCT_NAME = SKTiledTests;
 				SDKROOT = appletvos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 12.0;
 			};
@@ -2339,7 +2350,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = SKTiledTests;
 				SDKROOT = appletvos;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 12.0;
 			};
@@ -2367,7 +2378,7 @@
 				PRODUCT_NAME = SKTiledTests;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -2392,7 +2403,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = SKTiledTests;
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -2449,7 +2460,7 @@
 				OTHER_SWIFT_FLAGS = "-DRENDER_STATS";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2500,7 +2511,7 @@
 				OTHER_SWIFT_FLAGS = "-DRENDER_STATS";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2516,6 +2527,7 @@
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.22;
 				PRODUCT_BUNDLE_IDENTIFIER = com.supermeerkat.SKTiledDemo;
 				PRODUCT_NAME = "SKTiled Demo";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2533,6 +2545,7 @@
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.22;
 				PRODUCT_BUNDLE_IDENTIFIER = com.supermeerkat.SKTiledDemo;
 				PRODUCT_NAME = "SKTiled Demo";
 				PROVISIONING_PROFILE_SPECIFIER = "";

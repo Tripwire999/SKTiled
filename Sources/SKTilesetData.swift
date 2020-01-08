@@ -408,8 +408,8 @@ public func == (lhs: SKTilesetData, rhs: SKTilesetData) -> Bool {
 
 
 extension SKTilesetData: Hashable {
-    public var hashValue: Int {
-        return id.hashValue << 32 ^ globalID.hashValue
+    public func hash(into hasher: inout Hasher) {
+      hasher.combine(id.hashValue << 32 ^ globalID.hashValue)
     }
 }
 

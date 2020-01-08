@@ -282,7 +282,7 @@ extension BinaryInteger {
 
 public extension Int {
     /// returns number of digits in Int number
-    public var digitCount: Int {
+    var digitCount: Int {
         return numberOfDigits(in: self)
     }
 
@@ -295,16 +295,16 @@ public extension Int {
         }
     }
 
-    public init(bitComponents : [Int]) {
+    init(bitComponents : [Int]) {
         self = bitComponents.reduce(0, +)
     }
 
-    public func bitComponents() -> [Int] {
+    func bitComponents() -> [Int] {
         return (0 ..< 8*MemoryLayout<Int>.size).map({ 1 << $0 }).filter( { self & $0 != 0 })
     }
 
     /// SwiftRandom extension
-    static public func random(_ range: ClosedRange<Int>) -> Int {
+    static func random(_ range: ClosedRange<Int>) -> Int {
         return range.lowerBound + Int(arc4random_uniform(UInt32(range.upperBound - range.lowerBound + 1)))
     }
 }
@@ -319,7 +319,7 @@ internal extension CGFloat {
 
      - returns: `CGFloat`
      */
-    internal func radians() -> CGFloat {
+    func radians() -> CGFloat {
         let b = CGFloat(Double.pi) * (self / 180)
         return b
     }
@@ -329,7 +329,7 @@ internal extension CGFloat {
 
      - returns: `CGFloat`
      */
-    internal func degrees() -> CGFloat {
+    func degrees() -> CGFloat {
         return self * 180.0 / CGFloat(Double.pi)
     }
 
@@ -338,7 +338,7 @@ internal extension CGFloat {
 
      - returns: `CGFloat`
      */
-    internal func lerp(start: CGFloat, end: CGFloat, t: CGFloat) -> CGFloat {
+    func lerp(start: CGFloat, end: CGFloat, t: CGFloat) -> CGFloat {
         return start + (end - start) * t
     }
 
@@ -349,7 +349,7 @@ internal extension CGFloat {
      - parameter maxv: `CGFloat` min value.
      - returns: `CGFloat` clamped result.
      */
-    internal func clamped(_ minv: CGFloat, _ maxv: CGFloat) -> CGFloat {
+    func clamped(_ minv: CGFloat, _ maxv: CGFloat) -> CGFloat {
         let min = minv < maxv ? minv : maxv
         let max = minv > maxv ? minv : maxv
         return self < min ? min : (self > max ? max : self)
@@ -362,7 +362,7 @@ internal extension CGFloat {
      - parameter maxv: `CGFloat` min value.
      - returns: `CGFloat` clamped result.
      */
-    internal mutating func clamp(_ minv: CGFloat, _ maxv: CGFloat) -> CGFloat {
+    mutating func clamp(_ minv: CGFloat, _ maxv: CGFloat) -> CGFloat {
         self = clamped(minv, maxv)
         return self
     }
@@ -373,7 +373,7 @@ internal extension CGFloat {
      - parameter decimals: `Int` number of decimals to round to.
      - returns: `String` rounded display string.
      */
-    internal func roundTo(_ decimals: Int = 2) -> String {
+    func roundTo(_ decimals: Int = 2) -> String {
         return String(format: "%.\(String(decimals))f", self)
     }
 
@@ -382,13 +382,13 @@ internal extension CGFloat {
 
      - returns: `CGFloat` rounded value.
      */
-    internal func roundToHalf() -> CGFloat {
+    func roundToHalf() -> CGFloat {
         let scaled = self * 10.0
         let result = scaled - (scaled.truncatingRemainder(dividingBy: 5))
         return result.rounded() / 10
     }
 
-    internal static func random(_ range: ClosedRange<CGFloat>) -> CGFloat {
+    static func random(_ range: ClosedRange<CGFloat>) -> CGFloat {
         return CGFloat(Float(arc4random()) / Float(UINT32_MAX)) * (range.upperBound - range.lowerBound) + range.lowerBound
     }
 }
@@ -431,7 +431,7 @@ internal func sin(degrees: Float) -> Float {
 public extension CGPoint {
 
     /// Returns an point inverted in the Y-coordinate.
-    public var invertedY: CGPoint {
+    var invertedY: CGPoint {
         return CGPoint(x: self.x, y: self.y * -1)
     }
 
@@ -441,13 +441,13 @@ public extension CGPoint {
      - parameter decimals: `Int` decimals to round to.
      - returns: `String` display string.
      */
-    public func roundTo(_ decimals: Int = 1) -> String {
+    func roundTo(_ decimals: Int = 1) -> String {
         return "x: \(self.x.roundTo(decimals)), y: \(self.y.roundTo(decimals))"
     }
 
     /// Return a vector int (for GameplayKit)
-    public var toVec2: int2 {
-        return int2(Int32(x), Int32(y))
+    var toVec2: SIMD2<Int32> {
+        return SIMD2<Int32>(Int32(x), Int32(y))
     }
 
     /**
@@ -456,18 +456,18 @@ public extension CGPoint {
      - parameter point: `CGPoint` decimals to round to.
      - returns: `Float` distance to other point.
      */
-    public func distance(_ point: CGPoint) -> Float {
+    func distance(_ point: CGPoint) -> Float {
         let dx = Float(x - point.x)
         let dy = Float(y - point.y)
         return sqrt((dx * dx) + (dy * dy))
     }
 
     /// Return an integer value for x-coordinate.
-    public var xCoord: Int { return Int(x) }
+    var xCoord: Int { return Int(x) }
     /// Return an integer value for y-coordinate.
-    public var yCoord: Int { return Int(y) }
+    var yCoord: Int { return Int(y) }
 
-    public var description: String { return "x: \(x.roundTo()), y: \(y.roundTo())" }
+    var description: String { return "x: \(x.roundTo()), y: \(y.roundTo())" }
     internal var shortDescription: String {
         return "[\(String(format: "%.0f", x)),\(String(format: "%.0f", y))]"
     }
@@ -475,9 +475,8 @@ public extension CGPoint {
 
 
 extension CGPoint: Hashable {
-
-    public var hashValue: Int {
-        return x.hashValue << 32 ^ y.hashValue
+    public func hash(into hasher: inout Hasher) {
+      hasher.combine(x.hashValue << 32 ^ y.hashValue)
     }
 }
 
@@ -485,12 +484,12 @@ extension CGPoint: Hashable {
 
 public extension CGSize {
 
-    public var count: Int { return Int(width) * Int(height) }
-    public var halfSize: CGSize { return CGSize(width: width / 2, height: height / 2) }
-    public var halfWidth: CGFloat { return width / 2.0 }
-    public var halfHeight: CGFloat { return height / 2.0 }
+    var count: Int { return Int(width) * Int(height) }
+    var halfSize: CGSize { return CGSize(width: width / 2, height: height / 2) }
+    var halfWidth: CGFloat { return width / 2.0 }
+    var halfHeight: CGFloat { return height / 2.0 }
 
-    public func roundTo(_ decimals: Int = 1) -> String {
+    func roundTo(_ decimals: Int = 1) -> String {
         return "w: \(self.width.roundTo(decimals)), h: \(self.height.roundTo(decimals))"
     }
 
@@ -499,7 +498,7 @@ public extension CGSize {
     }
 
     /// Returns the size as a vector_float2
-    public var toVec2: vector_float2 {
+    var toVec2: vector_float2 {
         return vector_float2(Float(width), Float(height))
     }
 }
@@ -508,39 +507,39 @@ public extension CGSize {
 public extension CGRect {
 
     /// Initialize with a center point and size.
-    public init(center: CGPoint, size: CGSize) {
+    init(center: CGPoint, size: CGSize) {
         self.init()
         self.origin = CGPoint(x: center.x - size.width / 2.0, y: center.y - size.height / 2.0)
         self.size = size
     }
 
     /// Returns the center point of the rectangle.
-    public var center: CGPoint {
+    var center: CGPoint {
         return CGPoint(x: self.midX, y: self.midY)
     }
 
     /// Returns the top-left corner point.
-    public var topLeft: CGPoint {
+    var topLeft: CGPoint {
         return origin
     }
 
     /// Returns the top-right corner point.
-    public var topRight: CGPoint {
+    var topRight: CGPoint {
         return CGPoint(x: origin.x + size.width, y: origin.y)
     }
 
     /// Returns the bottom-left corner point.
-    public var bottomLeft: CGPoint {
+    var bottomLeft: CGPoint {
         return CGPoint(x: origin.x, y: origin.y + size.height)
     }
 
     /// Returns the bottom-left corner point.
-    public var bottomRight: CGPoint {
+    var bottomRight: CGPoint {
         return CGPoint(x: origin.x + size.width, y: origin.y + size.height)
     }
 
     /// Return the four corner points.
-    public var points: [CGPoint] {
+    var points: [CGPoint] {
         //return [topLeft, topRight, bottomRight, bottomLeft]
         return [bottomLeft, topLeft, topRight, bottomRight]
     }
@@ -551,7 +550,7 @@ public extension CGRect {
      - parameter amount: `CGFloat` decimals to round to.
      - returns: `CGRect` rectangle with inset value.
      */
-    public func insetBy(_ amount: CGFloat) -> CGRect {
+    func insetBy(_ amount: CGFloat) -> CGRect {
         return self.insetBy(dx: amount, dy: amount)
     }
 
@@ -561,7 +560,7 @@ public extension CGRect {
      - parameter decimals: `Int` decimals to round to.
      - returns: `String` display string.
      */
-    public func roundTo(_ decimals: Int = 1) -> String {
+    func roundTo(_ decimals: Int = 1) -> String {
         return "origin: \(Int(origin.x)), \(Int(origin.y)), size: \(Int(size.width)) x \(Int(size.height))"
     }
 
@@ -575,13 +574,13 @@ public extension CGVector {
     /**
      * Returns the squared length of the vector described by the CGVector.
      */
-    public func lengthSquared() -> CGFloat {
+    func lengthSquared() -> CGFloat {
         return dx*dx + dy*dy
     }
 
     /// Return a vector int (for GameplayKit)
-    public var toVec2: int2 {
-        return int2(Int32(dx), Int32(dy))
+    var toVec2: SIMD2<Int32> {
+        return SIMD2<Int32>(Int32(dx), Int32(dy))
     }
 }
 
@@ -590,14 +589,14 @@ public extension SKScene {
     /**
      Returns the center point of a scene.
      */
-    public var center: CGPoint {
+    var center: CGPoint {
         return CGPoint(x: (size.width / 2) - (size.width * anchorPoint.x), y: (size.height / 2) - (size.height * anchorPoint.y))
     }
 
     /**
      Calculate the distance from the scene's origin
      */
-    public func distanceFromOrigin(_ pos: CGPoint) -> CGVector {
+    func distanceFromOrigin(_ pos: CGPoint) -> CGVector {
         let dx = (pos.x - center.x)
         let dy = (pos.y - center.y)
         return CGVector(dx: dx, dy: dy)
@@ -614,7 +613,7 @@ public extension SKNode {
      - parameter withKey:    `String!` action key.
      - parameter completion: `() -> Void?` optional completion function.
      */
-    public func run(_ action: SKAction!, withKey: String!, completion block: (() -> Void)?) {
+    func run(_ action: SKAction!, withKey: String!, completion block: (() -> Void)?) {
         if let block = block {
             let completionAction = SKAction.run( block )
             let compositeAction = SKAction.sequence([ action, completionAction ])
@@ -630,7 +629,7 @@ public extension SKNode {
      - parameter to:       `CGFloat` new speed value.
      - parameter duration: `TimeInterval` animation length.
      */
-    public func speed(to newSpeed: CGFloat, duration: TimeInterval, completion: (() -> Void)? = nil) {
+    func speed(to newSpeed: CGFloat, duration: TimeInterval, completion: (() -> Void)? = nil) {
         run(SKAction.speed(to: newSpeed, duration: duration), withKey: nil, completion: completion)
     }
 
@@ -640,7 +639,7 @@ public extension SKNode {
      - parameter node:   `SKNode` new child node.
      - parameter fadeIn: `TimeInterval` fade in duration.
      */
-    public func addChild(_ node: SKNode, fadeIn duration: TimeInterval) {
+    func addChild(_ node: SKNode, fadeIn duration: TimeInterval) {
         node.alpha = (duration > 0) ? 0 : node.alpha
         self.addChild(node)
 
@@ -658,7 +657,7 @@ public extension SKSpriteNode {
 
      - parameter pixelImage: `String` texture image named.
      */
-    convenience public init(pixelImage named: String) {
+    convenience init(pixelImage named: String) {
         self.init(imageNamed: named)
         self.texture?.filteringMode = .nearest
     }
@@ -717,7 +716,7 @@ public extension SKColor {
      - parameter hexString:  `String` hexidecimal code.
      - returns: `SKColor`
      */
-    convenience public init(hexString: String) {
+    convenience init(hexString: String) {
         let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int = UInt32()
         Scanner(string: hex).scanHexInt32(&int)
@@ -746,7 +745,7 @@ public extension SKColor {
        - alpha: `Int` alpha value (0-255).
      - returns: `SKColor`
      */
-    convenience public init(red: Int, green: Int, blue: Int, alpha: Int = 255) {
+    convenience init(red: Int, green: Int, blue: Int, alpha: Int = 255) {
         self.init(red: CGFloat(red) / 255, green: CGFloat(green) / 255, blue: CGFloat(blue) / 255, alpha: CGFloat(alpha) / 255)
     }
 
@@ -764,7 +763,7 @@ public extension SKColor {
 
      - returns: `String` hexadecimal string.
      */
-    public func hexString() -> String {
+    func hexString() -> String {
         let comps = components
         let r = Int(comps[0] * 255)
         let g = Int(comps[1] * 255)
@@ -817,15 +816,15 @@ public extension SKColor {
         return GLKVector4(v: (Float(r), Float(g), Float(b), Float(a)))
     }
 
-    public var toVec4: vector_float4 {
+    var toVec4: vector_float4 {
         return vector_float4(components.map { Float($0) })
     }
 
-    public var hexDescription: String {
+    var hexDescription: String {
         return "SKColor(hexString:  \"\(self.hexString())\")"
     }
 
-    public var rgbDescription: String {
+    var rgbDescription: String {
         let comps = components
         let r = Int(comps[0] * 255)
         let g = Int(comps[1] * 255)
@@ -834,7 +833,7 @@ public extension SKColor {
         return "SKColor(r: \(r), g: \(g), b: \(b), a: \(a))"
     }
 
-    public var componentDescription: String {
+    var componentDescription: String {
         var result: [String] = []
         for compDesc in components.map({ "\($0.roundTo(4))" }) {
             result.append(compDesc)
@@ -844,7 +843,7 @@ public extension SKColor {
     
     
     // TODO: Take this out in master
-    public var integerComponentDescription: String {
+    var integerComponentDescription: String {
         var result: [String] = []
         let intComponents = components.map { Int($0 * 255)}
         for compDesc in intComponents.map({ "\($0)" }) {
@@ -1235,24 +1234,24 @@ extension SKAction {
 
 public extension Data {
     // init with a value
-    public init<T>(from value: T) {
+    init<T>(from value: T) {
         var value = value
         self.init(buffer: UnsafeBufferPointer(start: &value, count: 1))
     }
 
     // export back as value
-    public func to<T>(type: T.Type) -> T {
+    func to<T>(type: T.Type) -> T {
         return self.withUnsafeBytes { $0.pointee }
     }
 
     // init with array
-    public init<T>(fromArray values: [T]) {
+    init<T>(fromArray values: [T]) {
         var values = values
         self.init(buffer: UnsafeBufferPointer(start: &values, count: values.count))
     }
 
     // output to array
-    public func toArray<T>(type: T.Type) -> [T] {
+    func toArray<T>(type: T.Type) -> [T] {
         return self.withUnsafeBytes {
             [T](UnsafeBufferPointer(start: $0, count: self.count/MemoryLayout<T>.stride))
         }
@@ -1508,50 +1507,50 @@ public func lerp(start: SKColor, end: SKColor, t: CGFloat) -> SKColor {
 
 // MARK: vector_int2
 
-public func + (lhs: int2, rhs: int2) -> int2 {
-    return int2(lhs.x + rhs.x, lhs.y + rhs.y)
+public func + (lhs: SIMD2<Int32>, rhs: SIMD2<Int32>) -> SIMD2<Int32> {
+    return SIMD2<Int32>(lhs.x + rhs.x, lhs.y + rhs.y)
 }
 
-public func += (lhs: inout int2, rhs: int2) {
+public func += (lhs: inout SIMD2<Int32>, rhs: SIMD2<Int32>) {
     lhs.x += rhs.x
     lhs.y += rhs.y
 }
 
 
-public func - (lhs: int2, rhs: int2) -> int2 {
-    return int2(lhs.x - rhs.x, lhs.y - rhs.y)
+public func - (lhs: SIMD2<Int32>, rhs: SIMD2<Int32>) -> SIMD2<Int32> {
+    return SIMD2<Int32>(lhs.x - rhs.x, lhs.y - rhs.y)
 }
 
 
-public func -= (lhs: inout int2, rhs: int2) {
+public func -= (lhs: inout SIMD2<Int32>, rhs: SIMD2<Int32>) {
     lhs.x -= rhs.x
     lhs.y -= rhs.y
 
 }
 
 
-public func * (lhs: int2, rhs: int2) -> int2 {
-    return int2(lhs.x * rhs.x, lhs.y * rhs.y)
+public func * (lhs: SIMD2<Int32>, rhs: SIMD2<Int32>) -> SIMD2<Int32> {
+    return SIMD2<Int32>(lhs.x * rhs.x, lhs.y * rhs.y)
 }
 
-public func *= (lhs: inout int2, rhs: int2) {
+public func *= (lhs: inout SIMD2<Int32>, rhs: SIMD2<Int32>) {
     lhs.x *= rhs.x
     lhs.y *= rhs.y
 }
 
 
-public func / (lhs: int2, rhs: int2) -> int2 {
-    return int2(lhs.x / rhs.x, lhs.y / rhs.y)
+public func / (lhs: SIMD2<Int32>, rhs: SIMD2<Int32>) -> SIMD2<Int32> {
+    return SIMD2<Int32>(lhs.x / rhs.x, lhs.y / rhs.y)
 }
 
 // Swift 4 Error
 /*
-public func /= (lhs: inout int2, rhs: int2) {
+public func /= (lhs: inout SIMD2<Int32>, rhs: SIMD2<Int32>) {
     lhs /= rhs
 }
 
 
-public func == (lhs: int2, rhs: int2) -> Bool {
+public func == (lhs: SIMD2<Int32>, rhs: SIMD2<Int32>) -> Bool {
     return (lhs.x == rhs.x) && (lhs.y == rhs.y)
 }
 
@@ -1569,7 +1568,7 @@ extension vector_int2 {
      - parameter v: `vector_int2` coordinate.
      - returns: `CGVector` difference between.
      */
-    public func delta(to v: int2) -> CGVector {
+    public func delta(to v: SIMD2<Int32>) -> CGVector {
         let dx = Float(x - v.x)
         let dy = Float(y - v.y)
         return CGVector(dx: Int(dx), dy: Int(dy))
@@ -1581,7 +1580,7 @@ extension vector_int2 {
      - parameter v: `vector_int2` coordinate.
      - returns: `Bool` coordinates are contiguous.
      */
-    public func isContiguousTo(v: int2) -> Bool {
+    public func isContiguousTo(v: SIMD2<Int32>) -> Bool {
         let dx = Float(x - v.x)
         let dy = Float(y - v.y)
         return sqrt((dx * dx) + (dy * dy)) == 1
@@ -1795,7 +1794,7 @@ internal func drawLayerGraph(_ layer: SKTiledLayerObject,
                 let strokeColor = SKColor.black
                 var fillColor = SKColor.clear
 
-                 if let node = graph.node(atGridPosition: int2(Int32(col), Int32(row))) {
+                 if let node = graph.node(atGridPosition: SIMD2<Int32>(Int32(col), Int32(row))) {
 
                     fillColor = SKColor.gray
 
@@ -2293,10 +2292,10 @@ public typealias CompressionLevel = Int32
 
 public extension CompressionLevel {
 
-    static public let noCompression      = Z_NO_COMPRESSION
-    static public let bestSpeed          = Z_BEST_SPEED
-    static public let bestCompression    = Z_BEST_COMPRESSION
-    static public let defaultCompression = Z_DEFAULT_COMPRESSION
+    static let noCompression      = Z_NO_COMPRESSION
+    static let bestSpeed          = Z_BEST_SPEED
+    static let bestCompression    = Z_BEST_COMPRESSION
+    static let defaultCompression = Z_DEFAULT_COMPRESSION
 }
 
 
@@ -2420,7 +2419,7 @@ public extension Data {
 
      - returns: Whether the data is compressed.
      */
-    public var isGzipped: Bool {
+    var isGzipped: Bool {
         return self.starts(with: [0x1f, 0x8b])
     }
 
@@ -2429,7 +2428,7 @@ public extension Data {
 
      - returns: Whether the data is compressed.
      */
-    public var isZlibCompressed: Bool {
+    var isZlibCompressed: Bool {
         return self.starts(with: [0x78, 0x9C])
     }
 
@@ -2443,7 +2442,7 @@ public extension Data {
      - throws: `GzipError`
      - returns: Gzip-compressed `Data` object.
      */
-    public func gzipped(level: CompressionLevel = .defaultCompression) throws -> Data {
+    func gzipped(level: CompressionLevel = .defaultCompression) throws -> Data {
 
         guard self.isEmpty == false else {
             return Data()
@@ -2491,7 +2490,7 @@ public extension Data {
      - throws: `GzipError`
      - returns: Gzip-decompressed `Data` object.
      */
-    public func gunzipped() throws -> Data {
+    func gunzipped() throws -> Data {
 
         guard self.isEmpty == false else {
             return Data()

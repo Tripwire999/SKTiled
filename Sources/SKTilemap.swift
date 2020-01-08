@@ -1011,7 +1011,7 @@ public class SKTilemap: SKEffectNode, SKTiledObject {
      - returns: `SKTileset?` tileset object.
      */
     public func getTileset(named: String) -> SKTileset? {
-        if let index = tilesets.index(where: { $0.name == named }) {
+        if let index = tilesets.firstIndex(where: { $0.name == named }) {
             let tileset = tilesets[index]
             return tileset
         }
@@ -1025,7 +1025,7 @@ public class SKTilemap: SKEffectNode, SKTiledObject {
      - returns: `SKTileset?`
      */
     public func getTileset(fileNamed filename: String) -> SKTileset? {
-        if let index = tilesets.index(where: { $0.filename == filename }) {
+        if let index = tilesets.firstIndex(where: { $0.filename == filename }) {
             let tileset = tilesets[index]
             return tileset
         }
@@ -1064,7 +1064,7 @@ public class SKTilemap: SKEffectNode, SKTiledObject {
      - parameter vec2: `int2` vector int2 coordinate.
      - returns: `CGPoint` position in layer.
      */
-    public func pointForCoordinate(vec2: int2) -> CGPoint {
+    public func pointForCoordinate(vec2: SIMD2<Int32>) -> CGPoint {
         return defaultLayer.pointForCoordinate(vec2: vec2)
     }
 
@@ -1084,7 +1084,7 @@ public class SKTilemap: SKEffectNode, SKTiledObject {
      - parameter point: `CGPoint` point in layer.
      - returns: `int2` tile coordinate.
      */
-    public func vectorCoordinateForPoint(_ point: CGPoint) -> int2 {
+    public func vectorCoordinateForPoint(_ point: CGPoint) -> SIMD2<Int32> {
         return defaultLayer.vectorCoordinateForPoint(point)
     }
 
@@ -1241,7 +1241,7 @@ public class SKTilemap: SKEffectNode, SKTiledObject {
     public func getLayers(named layerName: String, recursive: Bool = true) -> [SKTiledLayerObject] {
         var result: [SKTiledLayerObject] = []
         let layersToCheck = self.getLayers(recursive: recursive)
-        if let index = layersToCheck.index(where: { $0.name == layerName }) {
+        if let index = layersToCheck.firstIndex(where: { $0.name == layerName }) {
             result.append(layersToCheck[index])
         }
         return result
@@ -1257,7 +1257,7 @@ public class SKTilemap: SKEffectNode, SKTiledObject {
     public func getLayers(withPrefix: String, recursive: Bool = true) -> [SKTiledLayerObject] {
         var result: [SKTiledLayerObject] = []
         let layersToCheck = self.getLayers(recursive: recursive)
-        if let index = layersToCheck.index(where: { $0.layerName.hasPrefix(withPrefix) }) {
+        if let index = layersToCheck.firstIndex(where: { $0.layerName.hasPrefix(withPrefix) }) {
             result.append(layersToCheck[index])
         }
         return result
@@ -1271,7 +1271,7 @@ public class SKTilemap: SKEffectNode, SKTiledObject {
      */
     public func getLayers(atPath: String) -> [SKTiledLayerObject] {
         var result: [SKTiledLayerObject] = []
-        if let index = self.layers.index(where: { $0.path == atPath }) {
+        if let index = self.layers.firstIndex(where: { $0.path == atPath }) {
             result.append(self.layers[index])
         }
         return result
@@ -1284,7 +1284,7 @@ public class SKTilemap: SKEffectNode, SKTiledObject {
      - returns: `SKTiledLayerObject?` layer object.
      */
     public func getLayer(withID uuid: String) -> SKTiledLayerObject? {
-        if let index = layers.index(where: { $0.uuid == uuid }) {
+        if let index = layers.firstIndex(where: { $0.uuid == uuid }) {
             let layer = layers[index]
             return layer
         }
@@ -1298,7 +1298,7 @@ public class SKTilemap: SKEffectNode, SKTiledObject {
      - returns: `SKTiledLayerObject?` layer object.
      */
     public func getLayer(atIndex index: Int) -> SKTiledLayerObject? {
-        if let index = _layers.index(where: { $0.index == index }) {
+        if let index = _layers.firstIndex(where: { $0.index == index }) {
             let layer = _layers[index]
             return layer
         }
@@ -1345,7 +1345,7 @@ public class SKTilemap: SKEffectNode, SKTiledObject {
      - returns: `SKTileLayer?` matching tile layer.
      */
     public func tileLayer(atIndex index: Int) -> SKTileLayer? {
-        if let layerIndex = tileLayers(recursive: false).index(where: {$0.index == index} ) {
+        if let layerIndex = tileLayers(recursive: false).firstIndex(where: {$0.index == index} ) {
             let layer = tileLayers(recursive: false)[layerIndex]
             return layer
         }
@@ -1381,7 +1381,7 @@ public class SKTilemap: SKEffectNode, SKTiledObject {
      - returns: `SKObjectGroup?` matching group layer.
      */
     public func objectGroup(atIndex index: Int) -> SKObjectGroup? {
-        if let layerIndex = objectGroups(recursive: false).index(where: {$0.index == index} ) {
+        if let layerIndex = objectGroups(recursive: false).firstIndex(where: {$0.index == index} ) {
             let layer = objectGroups(recursive: false)[layerIndex]
             return layer
         }
@@ -1417,7 +1417,7 @@ public class SKTilemap: SKEffectNode, SKTiledObject {
      - returns: `SKImageLayer?` matching image layer.
      */
     public func imageLayer(atIndex index: Int) -> SKImageLayer? {
-        if let layerIndex = imageLayers(recursive: false).index(where: {$0.index == index} ) {
+        if let layerIndex = imageLayers(recursive: false).firstIndex(where: {$0.index == index} ) {
             let layer = imageLayers(recursive: false)[layerIndex]
             return layer
         }
@@ -1453,7 +1453,7 @@ public class SKTilemap: SKEffectNode, SKTiledObject {
      - returns: `SKGroupLayer?` matching group layer.
      */
     public func groupLayer(atIndex index: Int) -> SKGroupLayer? {
-        if let layerIndex = groupLayers(recursive: false).index(where: { $0.index == index } ) {
+        if let layerIndex = groupLayers(recursive: false).firstIndex(where: { $0.index == index } ) {
             let layer = groupLayers(recursive: false)[layerIndex]
             return layer
         }
@@ -2648,16 +2648,16 @@ extension SKTilemap: CustomDebugReflectable {
         let allLayerStats = allLayers.map { $0.layerStatsDescription }
 
         // prefix for each column
-        var prefixes: [String] = ["", "", "", "", "pos", "size", "offset", "anc", "zpos", "opac", "nav"]
+        let prefixes: [String] = ["", "", "", "", "pos", "size", "offset", "anc", "zpos", "opac", "nav"]
 
         // buffer for each column
-        var buffers: [Int] = [1, 2, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        let buffers: [Int] = [1, 2, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1]
         var columnSizes: [Int] = Array(repeating: 0, count: prefixes.count)
 
         // get the max column size for each column
         for (_, stats) in allLayerStats.enumerated() {
             for stat in stats {
-                let cindex = Int(stats.index(of: stat)!)
+                let cindex = Int(stats.firstIndex(of: stat)!)
 
                 let colCharacters = stat.count
                 let prefix = prefixes[cindex]

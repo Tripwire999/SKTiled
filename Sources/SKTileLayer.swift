@@ -107,7 +107,7 @@ public class SKTiledLayerObject: SKEffectNode, SKTiledObject {
     public var rawIndex: Int = 0
     /// Flattened layer index (internal use only).
     internal var realIndex: Int {
-        return tilemap.layers.index(where: { $0 === self }) ?? self.index
+      return tilemap.layers.firstIndex(where: { $0 === self }) ?? self.index
     }
 
     /// Custom layer properties.
@@ -539,7 +539,7 @@ public class SKTiledLayerObject: SKEffectNode, SKTiledObject {
      - parameter point: `CGPoint` point in layer.
      - returns: `int2` tile coordinate.
      */
-    public func vectorCoordinateForPoint(_ point: CGPoint) -> int2 {
+    public func vectorCoordinateForPoint(_ point: CGPoint) -> SIMD2<Int32> {
         return screenToTileCoords(point.invertedY).toVec2
     }
 
@@ -1984,7 +1984,7 @@ public class SKObjectGroup: SKTiledLayerObject {
      - returns: `SKTileObject?`
      */
     public func getObject(withID id: Int) -> SKTileObject? {
-        if let index = objects.index(where: { $0.id == id }) {
+        if let index = objects.firstIndex(where: { $0.id == id }) {
             return objects[index]
         }
         return nil
@@ -2681,7 +2681,7 @@ extension SKTiledLayerObject {
      - parameter offsetY: `CGFloat` y-offset value.
      - returns: `CGPoint` position in layer.
      */
-    public func pointForCoordinate(vec2: int2, offsetX: CGFloat = 0, offsetY: CGFloat = 0) -> CGPoint {
+    public func pointForCoordinate(vec2: SIMD2<Int32>, offsetX: CGFloat = 0, offsetY: CGFloat = 0) -> CGPoint {
         return self.pointForCoordinate(coord: vec2.cgPoint, offsetX: offsetX, offsetY: offsetY)
     }
 
@@ -2786,7 +2786,7 @@ extension SKTiledLayerObject {
         let allParents: [SKNode] = self.parents.reversed()
         if (allParents.count == 1) { return self.layerName }
         return allParents.reduce("") { result, node in
-            let comma = allParents.index(of: node)! < allParents.count - 1 ? "/" : ""
+            let comma = allParents.firstIndex(of: node)! < allParents.count - 1 ? "/" : ""
             return result + "\(node.name ?? "nil")" + comma
         }
     }
@@ -2935,7 +2935,7 @@ extension Array2D: CustomReflectable, CustomStringConvertible, CustomDebugString
             rowdata.append(rowResult)
         }
 
-        let children = DictionaryLiteral<String, Any>(dictionaryLiteral: ("columns", columns), ("rows", rowdata))
+        let children = KeyValuePairs<String, Any>(dictionaryLiteral: ("columns", columns), ("rows", rowdata))
         return Mirror(self, children: children)
     }
 }

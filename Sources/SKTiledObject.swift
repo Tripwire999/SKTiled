@@ -68,7 +68,7 @@ import SpriteKit
 
 public extension SKTiledObject {
 
-    public var hashValue: Int { return uuid.hashValue }
+    var hashValue: Int { return uuid.hashValue }
 
     // MARK: - Properties Parsing
     
@@ -86,7 +86,7 @@ public extension SKTiledObject {
      - parameter key: `String` key to query.
      - returns: `String?` value for the given key.
      */
-    public subscript(key: String) -> String? {
+    subscript(key: String) -> String? {
         return (ignoreProperties == false) ? properties[key] : nil
     }
 
@@ -95,7 +95,7 @@ public extension SKTiledObject {
 
      - returns: `Bool` properties are not empty.
      */
-    public var hasProperties: Bool {
+    var hasProperties: Bool {
         return properties.isEmpty
     }
 
@@ -105,7 +105,7 @@ public extension SKTiledObject {
      - parameter key: `String` key to query.
      - returns: `Bool` properties has a value for the key.
      */
-    public func hasKey(_ key: String) -> Bool {
+    func hasKey(_ key: String) -> Bool {
         let pnames = properties.keys.map { $0.lowercased() }
         //return pnames.contains(key.lowercased())
         return !pnames.filter { $0 == key.lowercased()}.isEmpty
@@ -117,7 +117,7 @@ public extension SKTiledObject {
      - parameter key: `String` properties key.
      - returns: `Bool` value for properties key.
      */
-    public func boolForKey(_ key: String) -> Bool {
+    func boolForKey(_ key: String) -> Bool {
         if let existingPair = keyValuePair(key: key) {
             return Bool(existingPair.value) ?? false || Int(existingPair.value) == 1
         }
@@ -130,7 +130,7 @@ public extension SKTiledObject {
      - parameter key: `String` properties key.
      - returns: `String` value for properties key.
      */
-    public func stringForKey(_ key: String) -> String? {
+    func stringForKey(_ key: String) -> String? {
         for k in properties.keys {
             if k.lowercased() == key.lowercased() {
                 return properties[k]
@@ -145,7 +145,7 @@ public extension SKTiledObject {
      - parameter key: `String` properties key.
      - returns: `Int?` value for properties key.
      */
-    public func intForKey(_ key: String) -> Int? {
+    func intForKey(_ key: String) -> Int? {
         if let existingPair = keyValuePair(key: key) {
             return Int(existingPair.value)
         }
@@ -158,7 +158,7 @@ public extension SKTiledObject {
      - parameter key: `String` properties key.
      - returns: `Double?` value for properties key.
      */
-    public func doubleForKey(_ key: String) -> Double? {
+    func doubleForKey(_ key: String) -> Double? {
         if let existingPair = keyValuePair(key: key) {
             return Double(existingPair.value)
         }
@@ -171,7 +171,7 @@ public extension SKTiledObject {
      - parameter key:   `String` property key.
      - parameter value: `String` property value.
      */
-    public func setValue(forKey key: String, _ value: String) {
+    func setValue(forKey key: String, _ value: String) {
         if let existingPair = keyValuePair(key: key) {
             properties[existingPair.key] = value
             return
@@ -185,7 +185,7 @@ public extension SKTiledObject {
      - parameter key: `String` property key.
      - returns:       `String?` property value (if it exists).
      */
-    public func removeProperty(forKey key: String) -> String? {
+    func removeProperty(forKey key: String) -> String? {
         if let existingPair = keyValuePair(key: key) {
             return properties.removeValue(forKey: existingPair.key)!
         }
@@ -193,7 +193,7 @@ public extension SKTiledObject {
     }
 
     /// Returns a string representation of the node's properties.
-    public var propertiesString: String {
+    var propertiesString: String {
         return properties.reduce("", { (aggregate: String, pair) -> String in
             let comma: String = (pair.key == Array(properties.keys).last) ? "" : ","
             return "\(aggregate)\(pair.key): \(pair.value)\(comma) "
